@@ -18,7 +18,7 @@
 问题现象kafka消费者一开启就不停地进行消费，产生大量的重复消息
 问题原因通过打印消息偏移量发现消费者客户端上线以后不断地对一大块消息进行重复拉取和消费，形成了一个死循环。
 为什么会形成死循环呢？通过了解kafka消费者的工作原理，消费者只有在pull的时候才会向中央控制器发送心跳连接，默认超时时间是30秒，">
-<meta property="og:updated_time" content="2016-03-06T08:59:14.381Z">
+<meta property="og:updated_time" content="2016-03-06T09:00:34.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka重复消费问题">
 <meta name="twitter:description" content="最近在公司的项目中使用kafka消息队列进行开发的时候碰到了一个奇怪的问题，非常头疼。
@@ -128,7 +128,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/后端-kafka/" style="font-size: 10px;">-后端 -kafka</a>
+						<a href="/tags/kafka/" style="font-size: 10px;">kafka</a> <a href="/tags/后端/" style="font-size: 10px;">后端</a>
 					</div>
 				</section>
 				
@@ -240,7 +240,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端-kafka/">-后端 -kafka</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kafka/">kafka</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
 	</div>
 
         
