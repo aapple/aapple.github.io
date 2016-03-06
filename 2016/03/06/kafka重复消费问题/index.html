@@ -6,16 +6,25 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>kafka重复消费问题 | 逃离火星的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="惟愿无事常相见">
+  <meta name="description" content="最近在公司的项目中使用kafka消息队列进行开发的时候碰到了一个奇怪的问题，非常头疼。
+问题现象kafka消费者一开启就不停地进行消费，产生大量的重复消息
+问题原因通过打印消息偏移量发现消费者客户端上线以后不断地对一大块消息进行重复拉取和消费，形成了一个死循环。
+为什么会形成死循环呢？通过了解kafka消费者的工作原理，消费者只有在pull的时候才会向中央控制器发送心跳连接，默认超时时间是30秒，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kafka重复消费问题">
 <meta property="og:url" content="http://yoursite.com/2016/03/06/kafka重复消费问题/index.html">
 <meta property="og:site_name" content="逃离火星的博客">
-<meta property="og:description" content="惟愿无事常相见">
-<meta property="og:updated_time" content="2016-03-06T08:14:55.268Z">
+<meta property="og:description" content="最近在公司的项目中使用kafka消息队列进行开发的时候碰到了一个奇怪的问题，非常头疼。
+问题现象kafka消费者一开启就不停地进行消费，产生大量的重复消息
+问题原因通过打印消息偏移量发现消费者客户端上线以后不断地对一大块消息进行重复拉取和消费，形成了一个死循环。
+为什么会形成死循环呢？通过了解kafka消费者的工作原理，消费者只有在pull的时候才会向中央控制器发送心跳连接，默认超时时间是30秒，">
+<meta property="og:updated_time" content="2016-03-06T08:44:27.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka重复消费问题">
-<meta name="twitter:description" content="惟愿无事常相见">
+<meta name="twitter:description" content="最近在公司的项目中使用kafka消息队列进行开发的时候碰到了一个奇怪的问题，非常头疼。
+问题现象kafka消费者一开启就不停地进行消费，产生大量的重复消息
+问题原因通过打印消息偏移量发现消费者客户端上线以后不断地对一大块消息进行重复拉取和消费，形成了一个死循环。
+为什么会形成死循环呢？通过了解kafka消费者的工作原理，消费者只有在pull的时候才会向中央控制器发送心跳连接，默认超时时间是30秒，">
   
     <link rel="alternative" href="/atom.xml" title="逃离火星的博客" type="application/atom+xml">
   
@@ -238,7 +247,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>最近在公司的项目中使用kafka消息队列进行开发的时候碰到了一个奇怪的问题，非常头疼。</p>
+<h2 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h2><p>kafka消费者一开启就不停地进行消费，产生大量的重复消息</p>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>通过打印消息偏移量发现消费者客户端上线以后不断地对一大块消息进行重复拉取和消费，形成了一个死循环。</p>
+<h2 id="为什么会形成死循环呢？"><a href="#为什么会形成死循环呢？" class="headerlink" title="为什么会形成死循环呢？"></a>为什么会形成死循环呢？</h2><p>通过了解kafka消费者的工作原理，消费者只有在pull的时候才会向中央控制器发送心跳连接，默认超时时间是30秒，但是如果在上线前积攒了很多消息的话或一次性收到好几千条，而客户端在30秒内又处理不完，所以造成了客户端的假死，被踢出集群，下次获取偏移量的时候又取到了旧的偏移量，形成死循环。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>1、提高处理效率，避免数据处理期间超时。<br>2、一次只获取少量数据，保证超时以前处理完。</p>
+
       
     </div>
     
